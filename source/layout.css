@@ -1,0 +1,254 @@
+/* 页面主体 */
+html {
+	width: 100%;
+	height: 100%;
+	background-color: #112;
+}
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #eee;
+	color: #100;
+}
+@media screen and (max-width: 720px) {
+	body {
+		font-size: 95%;
+	}
+}
+
+/* 主体框架 */
+div#wrapper {
+	margin: 0 0 1.2em 0;
+	padding: 0.4em;
+	overflow: hidden;
+}
+div#footer {
+	padding: 0.6em 0.4em;
+	overflow: hidden;
+	text-align: center;
+	background-color: #112;
+	color: #fff;
+}
+div#screen {
+	position: fixed;
+	z-index: 3;
+	left: 0.4em;
+	right: 0.4em;
+	bottom: 60%;
+	-display: none;
+	text-align: center;
+}
+
+.-hidden {
+	display: none;
+}
+
+span.num {
+	white-space: no-wrap;
+}
+span.num.-sub {
+	vertical-align: bottom;
+	font-size: 50%;
+	font-weight: 300;
+}
+span.num.-emp {
+	font-size: 200%;
+	font-weight: 800;
+}
+@media screen and (max-width: 480px) {
+	span.num.-emp {
+		font-size: 180%;
+	}
+}
+
+h1 {
+	margin: 0.4em;
+	text-align: center;
+	font-size: 2.0em;
+}
+
+div.info {
+	position: relative;
+	margin: 0.4em;
+	border-radius: 0.2em;
+	padding: 0.4em;
+	overflow: hidden;
+	text-align: center;
+	background-color: #ddd;
+}
+div.info> h2 {
+	margin: 0 0 0.4em 0;
+	padding-left: 0.6em;
+	text-align: left;
+	font-size: 1.0em;
+	font-weight: 500;
+}
+div.info> p, div.info> span.num {
+	display: block;
+	margin: 0.4em;
+}
+div.info> span.progress {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: block;
+	width: 100%;
+	height: 0.2em;
+	opacity: 0.6;
+	background-color: #3c3;
+}
+
+div.frameset {
+	display: table;
+	table-layout: fixed;
+	margin: 0.4em 0;
+	width: 100%;
+}
+div.frameset> div.frame {
+	display: table-cell;
+	overflow: hidden;
+}
+div.frameset> div.frame.-shrink {
+	width: 30%;
+}
+div.frameset> div.frame.-norm {
+	width: 50%;
+}
+div.frameset> div.frame.-wide {
+	width: 80%;
+}
+
+div.floater {
+	margin: 0.4em 0;
+	text-align: center;
+}
+
+div#screen> div.screen.-prompt {
+	position: fixed;
+	z-index: 3;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.6);
+}
+div#screen> div.screen.-toast {
+	text-align: left;
+}
+@media screen and (max-width: 720px) {
+	div#screen> div.screen.-toast {
+		text-align: center;
+	}
+}
+div#screen> div.screen.-toast> div.toast {
+	position: relative;
+	z-index: 4;
+	display: inline-block;
+	margin: 0.4em 0.4em 0 0.4em;
+	border-radius: 0.2em;
+	padding: 0.4em 0.6em;
+	overflow: hidden;
+	background-color: rgba(0, 0, 0, 0.6);
+	color: #fff;
+}
+div#screen> div.screen.-toast> div.toast> span.progress {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: block;
+	width: 100%;
+	height: 0.2em;
+	opacity: 0.6;
+	background-color: #3c3;
+}
+
+button {
+	margin: 0.2em;
+	border: 1px solid #ccc;
+	border-radius: 0.2em;
+	padding: 0.4em 0.6em;
+	overflow: hidden;
+	font-family: inherit;
+	font-size: inherit;
+	background-color: #fff;
+	color: #111;
+	transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+button.-emp {
+	border: none;
+	background-color: #36c;
+	color: #fff;
+}
+button.-progress {
+	position: relative;
+}
+button.-progress::after {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: block;
+	height: 0.2em;
+	content: "";
+	opacity: 0.4;
+	background-color: #000;
+}
+button:active {
+	border-color: #999;
+	color: #000;
+}
+button.-emp:active {
+	background-color: #249;
+	color: #eee;
+}
+button.-progress> span.progress {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	display: block;
+	width: 100%;
+	height: 0.2em;
+	opacity: 0.6;
+	background-color: #3c3;
+}
+
+div#floater-panel> h2#proverb {
+	color: #999;
+}
+div#floater-panel> button.-emp {
+	font-size: 2.0em;
+}
+div#floater-panel> button.-emp.-lvl0 {
+	background-color: #666;
+}
+div#floater-panel> button.-emp.-lvl0:active {
+	background-color: #444;
+}
+div#floater-panel> button.-emp.-lvl2 {
+	background-color: #3c3;
+}
+div#floater-panel> button.-emp.-lvl2:active {
+	background-color: #292;
+}
+div#floater-panel> button.-emp.-lvl3 {
+	background-color: #cc3;
+}
+div#floater-panel> button.-emp.-lvl3:active {
+	background-color: #992;
+}
+div#floater-panel> button.-emp.-lvl4 {
+	background-color: #c3c;
+}
+div#floater-panel> button.-emp.-lvl4:active {
+	background-color: #929;
+}
+div#floater-panel> button.-emp.-lvl5 {
+	background-color: #c33;
+}
+div#floater-panel> button.-emp.-lvl5:active {
+	background-color: #922;
+}
