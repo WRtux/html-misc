@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html>
+
+<!-- 页面头部 -->
+<head>
+
+<!-- 基本头部属性 -->
+<meta http-equiv="content-type" content="charset=utf-8" />
+<title>续</title>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0" />
+
+<!-- 基础样式表 -->
+<link rel="stylesheet" type="text/css" href="./layout.css" />
+
+<!-- 内容加载前脚本 -->
+<script id="js-preload" type="text/javascript"></script>
+
+<!-- 页面头部结束 -->
+</head>
+
+<!-- 页面主体 -->
+<body>
+
+<!-- 主体包装 -->
+<div id="wrapper">
+
+<h1>续</h1>
+
+<div id="info-self" class="info">
+	<h2>Clock</h2>
+	<span id="num-self" class="num -emp">Time</span>
+	<span class="progress"></span>
+</div>
+
+<div class="frameset">
+	<div class="frame -shrink"><div id="info-fspeed" class="info">
+		<h2>ClickSpeed</h2>
+		<span id="num-cspeed" class="num -emp">Speed</span>
+	</div></div>
+	<div class="frame -norm"><div id="info-xuen" class="info">
+		<h2>Xuen</h2>
+		<span id="num-xuen" class="num -emp">Time</span>
+	</div></div>
+</div>
+
+<div id="floater-panel" class="floater">
+	<h2 id="proverb">准备中……</h2>
+	<button id="button-admire" class="-emp -hidden -progress -lvl0" onclick="act(translateNode(this));">
+		膜<span id="lvl-admire" class="num -sub"></span>
+		<span id="progress-admire" class="progress"></span>
+	</button><button id="button-xu" class="-emp -hidden -progress -lvl0" onclick="act(translateNode(this));">
+		续<span id="lvl-xu" class="num -sub"></span>
+		<span id="progress-xu" class="progress"></span>
+	</button><button id="button-frog" class="-emp -hidden -progress -lvl0" onclick="act(translateNode(this));">
+		🐸<span id="lvl-frog" class="num -sub"></span>
+		<span id="progress-frog" class="progress"></span>
+	</button>
+</div>
+
+</div>
+
+<div id="haudio" class="-hidden">
+		<audio id="haudio0" src="./haudio/0.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio1" src="./haudio/1.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio2" src="./haudio/2.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio3" src="./haudio/3.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio4" src="./haudio/4.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio5" src="./haudio/5.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio6" src="./haudio/6.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio7" src="./haudio/7.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio8" src="./haudio/8.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio9" src="./haudio/9.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio10" src="./haudio/10.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio11" src="./haudio/11.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio12" src="./haudio/12.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio13" src="./haudio/13.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio14" src="./haudio/14.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio15" src="./haudio/15.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio16" src="./haudio/16.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio17" src="./haudio/17.mp3" preload>你的浏览器不支持音频。</audio>
+		<audio id="haudio18" src="./haudio/18.mp3" preload>你的浏览器不支持音频。</audio>
+</div>
+
+<!-- 页脚栏 -->
+<div id="footer">
+	<p>续 HTML<br />Wilderness Ranger 设计</p>
+</div>
+
+<!-- 遮罩层 -->
+<div id="screen"></div>
+
+<!-- 页面主体结束 -->
+</body>
+
+<!-- JS方法简化脚本 -->
+<script id="js-ease" type="text/javascript" src="./jsease.js"></script>
+<!-- 动画管理脚本 -->
+<script id="js-animate" type="text/javascript" src="./animate.js"></script>
+<!-- 页面服务脚本 -->
+<script id="js-base" type="text/javascript">
+var xuen = 0, xubuf = 0;
+var cspeed = 0.0;
+var button = [
+	{
+		name: "admire", title: "膜",
+		lvl: 0, exp: 0, update: true,
+		limit: 5, target: [80, 240, 480, 800, 1200, Number.MAX_VALUE],
+		xu: [1000, 1200, 1500, 1800, 2100, 2500], bonus: [0, 100, 200, 300, 400, 500]
+	}, {
+		name: "xu", title: "续",
+		lvl: 0, exp: 0, update: true,
+		limit: 5, target: [120, 360, 720, 1200, 1800, Number.MAX_VALUE],
+		xu: [1000, 1400, 1800, 2300, 2800, 3500], bonus: [0, 150, 300, 450, 600, 800]
+	}, {
+		name: "frog", title: "🐸",
+		lvl: 0, exp: 0, update: true,
+		limit: 5, target: [150, 450, 900, 1500, 2250, Number.MAX_VALUE],
+		xu: [2000, 2500, 3000, 3600, 4200, 5000], bonus: [100, 200, 300, 400, 500, 600]
+	}
+];
+var frame = 0, proverb = {
+	title: undefined, priority: 0, update: false
+}, haudio = {
+	id: undefined
+};
+
+function translateId(prefix, id) {
+	return $getNode(prefix + "-" + button[id].name);
+}
+function translateNode(node) {
+	var name = node.id.slice(node.id.lastIndexOf('-') + 1);
+	for(var i = 0; i < button.length; i++)
+		if(name == button[i].name) return i;
+	return -1;
+}
+
+function toast(msg, timeout) {
+	var ele = $newNode("DIV");
+	ele.className = "screen -toast";
+	var toast = $newNode("DIV");
+	toast.className = "toast";
+	toast.innerHTML = msg;
+	var prog = $newNode("SPAN");
+	prog.className = "progress";
+	$addNode(prog, toast);
+	$addNode(toast, ele);
+	$addNode(ele, $getNode("screen"));
+	if(timeout == undefined || timeout == 0) timeout = 1000;
+	else if(timeout < 600) timeout = 600;
+	$fadeInNode(toast, "inline-block");
+	setTimeout(function() {
+		$slideOutNode(prog, timeout + 300);
+	}, 40);
+	setTimeout(function() {
+		$fadeOutNode(toast);
+	}, timeout);
+	setTimeout(function() {
+		$removeNode(ele);
+	}, timeout + 620);
+}
+
+function setProverb(msg, priority) {
+	if(priority == undefined) priority = 0;
+	if(priority >= proverb.priority && msg != proverb.title) {
+		proverb.title = msg;
+		proverb.priority = priority;
+		proverb.update = true;
+	}
+}
+function updateProverb() {
+	if(proverb.update) {
+		$getNode("proverb").innerHTML = proverb.title;
+		proverb.update = false;
+	}
+}
+
+function playHaudio(id) {
+	if(!haudio.id) {
+		haudio.id = id;
+		$getNode("haudio" + id).play();
+		setTimeout(function() {
+			haudio.id = undefined;
+		}, 1000);
+		return true;
+	} else return false;
+}
+
+function click() {
+	cspeed++;
+}
+
+function xu(milli, multi) {
+	if(multi == undefined) multi = 1;
+	xubuf += multi * milli;
+	if(multi == 1) {
+		toast("+" + ($round(milli / 10) / 100) + "s", 0);
+	} else {
+		toast("+" + ($round(milli / 10) / 100) + "s (x" + ($round(multi * 100) / 100) + ")", 0);
+	}
+}
+
+function addExp(id, num) {
+	var target = button[id];
+	target.exp += num;
+	if(target.exp >= target.target[target.lvl]) lvlUp(id);
+	target.update = true;
+}
+
+function unlock(id) {
+	$fadeInNode(translateId("button", id), "inline-block");
+	toast("已解锁“" + button[id].title + "”", 0);
+}
+function lvlUp(id) {
+	var target = button[id];
+	$removeClass(translateId("button", id), "-lvl" + target.lvl);
+	target.exp -= target.target[target.lvl];
+	target.lvl++;
+	$setClass(translateId("button", id), "-lvl" + target.lvl);
+	translateId("lvl", id).innerHTML = "Lv" + target.lvl;
+	if(target.lvl < target.limit) {
+		toast("“" + target.title + "”升级了", 0);
+		if(id + 1 < button.length && target.lvl == 2) unlock(id + 1);
+	} else toast("“" + target.title + "”已达等级上限", 0);
+}
+
+</script>
+<script id="js-service" type="text/javascript">
+function act(id) {
+	if(id >= 0 && id < button.length) {
+		var target = button[id];
+		click();
+		if(cspeed < 10)
+			xu(target.xu[target.lvl] + $round(Math.random() * target.bonus[target.lvl]));
+		else if(cspeed < 15) {
+			xu(target.xu[target.lvl] + $round(Math.random() * target.bonus[target.lvl]), 1.2);
+			setProverb("这种手速是坠吼滴！", 40);
+		} else {
+			xu(target.xu[target.lvl] + $round(Math.random() * target.bonus[target.lvl]), 1.3);
+			setProverb("比香港记者点得还快！", 60);
+		}
+		addExp(id, 1);
+		updatePanel();
+		if(Math.random() * 89 > 64) playHaudio($floor(19 * Math.random()));
+	}
+}
+
+function defaultProverb() {
+	if(proverb.priority > 0) return false;
+	setProverb("蛤？");
+	if(xuen + xubuf >= 30 * 1000) setProverb("苟利国，岂避祸");
+	if(xuen + xubuf >= 120 * 1000) setProverb("你们给我续的这些时间，Excited！");
+	if(xuen + xubuf >= 300 * 1000) setProverb("Hawaii Guitar");
+	if(xuen + xubuf >= 600 * 1000) setProverb("你这样是要负泽的！");
+	if(xuen + xubuf >= 900 * 1000) setProverb("膜蛤也要按照基本法！");
+	if(xuen + xubuf >= 1200 * 1000) setProverb("我们要万众一心，合力续命");
+	if(xuen + xubuf >= 1500 * 1000) setProverb("我一个上海市委书记");
+	if(xuen + xubuf >= 1500 * 1000) setProverb("也要考虑历史的进程");
+	if(xuen + xubuf >= 1800 * 1000) setProverb("见得风，续得命");
+	if(xuen + xubuf >= 2400 * 1000) setProverb("吼蛙！");
+	if(xuen + xubuf >= 3000 * 1000) setProverb("确立社会主义市场经济");
+	if(xuen + xubuf >= 3600 * 1000) setProverb("把邓小平理论列入党章");
+	if(xuen + xubuf >= 4200 * 1000) setProverb("戴三个表！");
+	if(xuen + xubuf >= 4800 * 1000) setProverb("还有一点就是军队一律不得经商。");
+	if(xuen + xubuf >= 5400 * 1000) setProverb("98年的抗洪……也是很大的");
+	if(xuen + xubuf >= 6000 * 1000) setProverb("尽管就做了一点微小的工作……");
+	if(xuen + xubuf >= 6600 * 1000) setProverb("我很惭愧……");
+	if(xuen + xubuf >= 7200 * 1000) setProverb("这也是坠吼的！");
+	return true;
+}
+
+function updateInfo() {
+	frame++;
+	var d = $ceil(Math.min(xubuf / 5 + 1000, xubuf));
+	xuen += d, xubuf -= d;
+	d = new Date();
+	d.setTime(d.getTime() + xuen);
+	$getNode("num-self").innerHTML = date$toDateTime(d);
+	$getNode("num-xuen").innerHTML = num$toDur($floor(xuen / 1000));
+	if(frame % 10 == 0) {
+		$getNode("num-cspeed").innerHTML = ($round(cspeed * 10) / 10) + "cps";
+		cspeed /= 2;
+		defaultProverb();
+		updateProverb();
+	}
+	if(proverb.priority > 0) proverb.priority--;
+}
+
+function updatePanel() {
+	defaultProverb();
+	updateProverb();
+	for(var i = 0; i < button.length; i++) {
+		var target = button[i];
+		if(target.update)
+			$slideNodeWidth(translateId("progress", i), target.exp, target.target[target.lvl]);
+	}
+}
+
+</script>
+<!-- 内容加载完成脚本 -->
+<script id="js-loade" type="text/javascript">
+window.onload = function() {
+	unlock(0);
+	setInterval(updateInfo, 50);
+	setTimeout(updatePanel, 40);
+};
+
+</script>
+
+</html>
